@@ -1,0 +1,4 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: https://serviceregistry-bugbusters.onrender.com/eureka
