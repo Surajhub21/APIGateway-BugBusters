@@ -18,16 +18,17 @@ public class ApiGatewayApplication {
 	@Bean
 	public RouteLocator customRouteLocator(RouteLocatorBuilder builder){
 		return builder.routes()
-				.route("USERSERVICE", r-> r.path("/user/**" , "/public/**" , "/email/**")
-						.filters(f -> f.stripPrefix(0))
+				.route("USERSERVICE", r -> r.path("/user/**", "/public/**", "/email/**")
+						.filters(f -> f.stripPrefix(0).addRequestHeader("X-Service-Name", "USERSERVICE"))
 						.uri("lb://USERSERVICE"))
-				.route("PESTSERVICE", r-> r.path("/pests/**")
-						.filters(f -> f.stripPrefix(0))
+				.route("PESTSERVICE", r -> r.path("/pests/**")
+						.filters(f -> f.stripPrefix(0).addRequestHeader("X-Service-Name", "PESTSERVICE"))
 						.uri("lb://PESTSERVICE"))
-				.route("BOOKINGSERVICE", r-> r.path("/booking/**")
-						.filters(f -> f.stripPrefix(0))
+				.route("BOOKINGSERVICE", r -> r.path("/booking/**")
+						.filters(f -> f.stripPrefix(0).addRequestHeader("X-Service-Name", "BOOKINGSERVICE"))
 						.uri("lb://BOOKINGSERVICE"))
 				.build();
 	}
+
 
 }
